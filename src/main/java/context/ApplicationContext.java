@@ -7,6 +7,7 @@ import service.*;
 import util.HibernateUtil;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public class ApplicationContext {
 
@@ -21,9 +22,13 @@ public class ApplicationContext {
     private CommentService commentService = new CommentServiceImpl(commentRepository);
 
     private User user ;
+    private List<Tweet> tweets;
+
 
     private ApplicationContext() {
+
     }
+
 
     public EntityManager getEntityManager() {
         return entityManager;
@@ -87,5 +92,13 @@ public class ApplicationContext {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
     }
 }

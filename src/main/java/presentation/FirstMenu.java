@@ -17,9 +17,10 @@ public class FirstMenu implements Menu {
         }while (!trueChoice);
 
         switch (choice){
-            case 1:return
-            case 2:return
+            case 1:return new LoginMenu();
+            case 2:return new SignUpMenu();
             case 3:System.exit(0);
         }
+        return null;
     }
 }

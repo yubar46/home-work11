@@ -1,4 +1,6 @@
 package service;
 
-public interface CommentService {
+import domain.Comment;
+
+public interface CommentService extends BaseService<Comment,Long> {
 }

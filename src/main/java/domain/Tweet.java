@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Tweet {
     @Id
-    Long ID;
+    Long id;
     String tweet;
     @ManyToOne
     User tweetOwner;
@@ -23,12 +23,19 @@ public class Tweet {
         this.tweetOwner = tweetOwner;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long ID) {
+        this.id = ID;
+    }
+
+
+    public String toString(){
+        return String.format(" tweet id: %d %s : %n %s  liked by %d people %n " ,
+                id,tweetOwner.getUserName(),getTweet(),likedUsers.size());
+
     }
 
     public String getTweet() {
@@ -38,6 +45,8 @@ public class Tweet {
     public void setTweet(String tweet) {
         this.tweet = tweet;
     }
+
+    // TODO: 18.07.22 toString;
 
     public User getTweetOwner() {
         return tweetOwner;

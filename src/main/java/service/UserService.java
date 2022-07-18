@@ -1,4 +1,6 @@
 package service;
 
-public interface UserService {
+import domain.User;
+
+public interface UserService extends  BaseService<User,Long> {
 }
