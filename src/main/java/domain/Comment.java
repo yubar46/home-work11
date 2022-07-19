@@ -5,11 +5,13 @@ import javax.persistence.*;
 @Entity
 public class Comment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @Column(length = 288)
     String comment;
     @ManyToOne
     User commentOwner;
+
 
     public Comment() {
     }
@@ -26,8 +28,9 @@ public class Comment {
     public void setId(Long id) {
         this.id = id;
     }
-    public String toString(){
-        return String.format("%s: %s %n comment id: %d",commentOwner.getUserName(),comment,id);
+
+    public String toString() {
+        return String.format("%s: %s %n comment id: %d", commentOwner.getUserName(), comment, id);
     }
 
     public String getComment() {

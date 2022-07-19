@@ -13,7 +13,6 @@ public class JpaTutorialApplication {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 
-
         System.out.println("end");
     }
 

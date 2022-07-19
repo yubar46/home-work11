@@ -1,25 +1,28 @@
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String userName;
     private String password;
     private String firstName;
     private String lastName;
-    @OneToMany
-    List<Tweet> tweets = new ArrayList<>();
+    @OneToMany(mappedBy = "tweetOwner", cascade = CascadeType.ALL)
+   private List<Tweet> tweets = new ArrayList<>();
+    @ManyToMany
+       private List<Tweet> likedTweets = new ArrayList<>();
 
     public User() {
     }
 
-    public User(String userName, String password,String firstName,String lastName) {
+    public User(String userName, String password, String firstName, String lastName) {
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;

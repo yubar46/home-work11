@@ -12,6 +12,7 @@ public class WriteTweetMenu implements Menu {
         System.out.println("write your tweet");
         String s = console.nextLine();
         Tweet tweet = new Tweet(s, ApplicationContext.getInstance.getUser());
+        ApplicationContext.getInstance.setTweets(ApplicationContext.getInstance.getTweetService().showAllTweets());
         ApplicationContext.getInstance.getTweets().add(tweet);
         ApplicationContext.getInstance.getTweetService().create(tweet);
         return new InsideMenu();

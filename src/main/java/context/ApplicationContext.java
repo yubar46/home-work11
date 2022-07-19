@@ -21,7 +21,7 @@ public class ApplicationContext {
     private TweetService tweetService = new TweetServiceImpl(tweetRepository);
     private CommentService commentService = new CommentServiceImpl(commentRepository);
 
-    private User user ;
+    private User user;
     private List<Tweet> tweets;
 
 

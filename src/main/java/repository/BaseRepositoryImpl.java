@@ -5,10 +5,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public abstract class BaseRepositoryImpl<T,ID> implements BaseRepository<T,ID> {
+public abstract class BaseRepositoryImpl<T, ID> implements BaseRepository<T, ID> {
     protected final EntityManager entityManager;
     protected final Class<T> entityClass;
-    public BaseRepositoryImpl( EntityManager entityManager){
+
+    public BaseRepositoryImpl(EntityManager entityManager) {
 
         this.entityManager = entityManager;
         this.entityClass = getClassObject();
@@ -25,7 +26,7 @@ public abstract class BaseRepositoryImpl<T,ID> implements BaseRepository<T,ID> {
 
     @Override
     public T find(ID id) {
-    return     entityManager.find(getClassObject(),id);
+        return entityManager.find(getClassObject(), id);
 
 
     }
@@ -33,7 +34,7 @@ public abstract class BaseRepositoryImpl<T,ID> implements BaseRepository<T,ID> {
     @Override
     public T update(T t) {
 
-        t=entityManager.merge(t);
+        t = entityManager.merge(t);
 
         return t;
     }
@@ -41,23 +42,23 @@ public abstract class BaseRepositoryImpl<T,ID> implements BaseRepository<T,ID> {
     @Override
     public void delete(ID id) {
 
-        entityManager.createQuery("delete  from "+getClassObject().getSimpleName()+" e where e.id= :id")
-                .setParameter("id",id)
+        entityManager.createQuery("delete  from " + getClassObject().getSimpleName() + " e where e.id= :id")
+                .setParameter("id", id)
                 .executeUpdate();
 
     }
 
     @Override
     public List<T> findAll(T t) {
-       TypedQuery<T> typedQuery =
-               entityManager.createQuery("select t from"+entityClass.getSimpleName()+"t",entityClass);
-       List<T> list = typedQuery.getResultList();
-       return list;
+        TypedQuery<T> typedQuery =
+                entityManager.createQuery("select t from" + entityClass.getSimpleName() + "t", entityClass);
+        List<T> list = typedQuery.getResultList();
+        return list;
     }
 
     @Override
     public void beginTransaction() {
-        if (!entityManager.getTransaction().isActive()){
+        if (!entityManager.getTransaction().isActive()) {
             entityManager.getTransaction().begin();
         }
 

@@ -9,16 +9,16 @@ import java.util.List;
 public class ViewAllTweetsMenu implements Menu {
     @Override
     public Menu action() {
-        List<Tweet> tweets ;
-        if (ApplicationContext.getInstance.getTweetService().showAllTweets()!=null){
-            tweets= ApplicationContext.getInstance.getTweetService().showAllTweets();
+        List<Tweet> tweets;
+        if (ApplicationContext.getInstance.getTweetService().showAllTweets() != null) {
+            tweets = ApplicationContext.getInstance.getTweetService().showAllTweets();
             ApplicationContext.getInstance.setTweets(tweets);
-            for (int i=0;i<tweets.size();i++){
+            for (int i = 0; i < tweets.size(); i++) {
                 System.out.println(tweets.get(i));
                 tweets.get(i).getComments().forEach(System.out::println);
             }
 
         }
-        return  new InsideMenu();
+        return new InsideMenu();
     }
 }

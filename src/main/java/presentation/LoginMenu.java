@@ -9,21 +9,26 @@ public class LoginMenu implements Menu {
     public Menu action() {
 
         Scanner console = new Scanner(System.in);
-        boolean checkLogin =false;
+        boolean checkLogin = false;
         do {
             System.out.println("enter your userName");
             String username = console.next();
             System.out.println("enter your password");
-            String password= console.next();
+            String password = console.next();
 
             if (ApplicationContext.getInstance.getUserRepository().findByUserName(username)
-                    !=null)ApplicationContext.getInstance.setUser(ApplicationContext.getInstance
-                    .getUserRepository().findByUserName(username));
-            if (ApplicationContext.getInstance.getUser().getPassword().equals(password))checkLogin=true;
-            else System.out.println("wrong username or password entered");
+                    != null) {
+                ApplicationContext.getInstance.setUser(ApplicationContext.getInstance
+                        .getUserRepository().findByUserName(username));
 
-        }while (!checkLogin);
+                if (ApplicationContext.getInstance.getUser().getPassword().equals(password)) {
+                    checkLogin = true;
+                    return new InsideMenu();
+                }
+            } else System.out.println("wrong username or password entered");
 
-        return null;
+        } while (!checkLogin);
+
+        return new LoginMenu();
     }
 }

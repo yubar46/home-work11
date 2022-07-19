@@ -7,18 +7,21 @@ import java.util.List;
 @Entity
 public class Tweet {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String tweet;
     @ManyToOne
     User tweetOwner;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tweet_id")
     List<Comment> comments = new ArrayList<>();
-    @OneToMany
+    @ManyToMany(mappedBy ="likedTweets" )
     List<User> likedUsers = new ArrayList<>();
 
     public Tweet() {
     }
-    public Tweet(String tweet,User tweetOwner) {
+
+    public Tweet(String tweet, User tweetOwner) {
         this.tweet = tweet;
         this.tweetOwner = tweetOwner;
     }
@@ -32,9 +35,9 @@ public class Tweet {
     }
 
 
-    public String toString(){
-        return String.format(" tweet id: %d %s : %n %s  liked by %d people %n " ,
-                id,tweetOwner.getUserName(),getTweet(),likedUsers.size());
+    public String toString() {
+        return String.format(" tweet id: %d %s : %n %s %n liked by %d people %n ",
+                id, tweetOwner.getUserName(), getTweet(), likedUsers.size());
 
     }
 
@@ -46,7 +49,6 @@ public class Tweet {
         this.tweet = tweet;
     }
 
-    // TODO: 18.07.22 toString;
 
     public User getTweetOwner() {
         return tweetOwner;
@@ -71,4 +73,5 @@ public class Tweet {
     public void setLikedUsers(List<User> likedUsers) {
         this.likedUsers = likedUsers;
     }
+
 }

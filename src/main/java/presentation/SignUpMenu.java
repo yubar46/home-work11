@@ -7,8 +7,9 @@ import javafx.scene.transform.Scale;
 import javax.swing.plaf.nimbus.AbstractRegionPainter;
 import java.util.Scanner;
 
-public class SignUpMenu implements  Menu {
+public class SignUpMenu implements Menu {
     Scanner console = new Scanner(System.in);
+
     @Override
     public Menu action() {
 
@@ -18,39 +19,39 @@ public class SignUpMenu implements  Menu {
         String lastName = console.next();
         String username;
         do {
-            System.out.println("please enter your first username");
-            username= console.next();
-        }while (!checkUserName(username));
+            System.out.println("please enter your  username");
+            username = console.next();
+        } while (!checkUserName(username));
         String password;
-        boolean check= false;
+        boolean check = false;
         do {
-            System.out.println("please enter your first password");
+            System.out.println("please enter your  password");
             password = console.next();
 
-            if (password.length()<8) System.out.println("your password must be greater than 8 characters");
-                else check=checkPassword(password);
-        }while (!check);
-        User user = new  User(username,password,firstName,lastName);
+            if (password.length() < 8) System.out.println("your password must be greater than 8 characters");
+            else check = checkPassword(password);
+        } while (!check);
+        User user = new User(username, password, firstName, lastName);
         ApplicationContext.getInstance.setUser(user);
         ApplicationContext.getInstance.getUserService().create(user);
         return new InsideMenu();
     }
 
-    private boolean checkUserName(String username){
+    private boolean checkUserName(String username) {
         boolean check = false;
-        if (ApplicationContext.getInstance.getUserRepository().findByUserName(username)!=null)
+        if (ApplicationContext.getInstance.getUserRepository().findByUserName(username) != null)
             System.out.println("this username is already taken please enter choose another username");
-        else check=true;
+        else check = true;
         return true;
 
     }
 
-    private boolean checkPassword(String password){
+    private boolean checkPassword(String password) {
 
-        boolean check =false;
+        boolean check = false;
         System.out.println("please enter your password again");
         String checkPassword = console.next();
-        if (password.equals(checkPassword))check=true;
+        if (password.equals(checkPassword)) check = true;
         else System.out.println("first password and second password is not same enter password again");
         return check;
 
