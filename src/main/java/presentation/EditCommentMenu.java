@@ -3,6 +3,7 @@ package presentation;
 import context.ApplicationContext;
 import domain.Comment;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EditCommentMenu implements Menu {
@@ -13,7 +14,15 @@ public class EditCommentMenu implements Menu {
     public Menu action() {
 
         System.out.println("enter your comment ID");
-        Long id = console.nextLong();
+        Long id;
+        try {
+             id = console.nextLong();
+        }catch (InputMismatchException exception){
+            System.out.println("enter correct number");
+            return new EditCommentMenu();
+
+
+        }
         if (ApplicationContext.getInstance.getCommentService()
                 .findByUserOwnerAndCommentId(ApplicationContext.
                         getInstance.getUser(), id) == null) {

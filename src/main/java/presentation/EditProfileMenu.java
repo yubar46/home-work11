@@ -4,6 +4,7 @@ import context.ApplicationContext;
 import domain.Comment;
 import domain.Tweet;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,8 +15,16 @@ public class EditProfileMenu implements Menu {
     public Menu action() {
         System.out.printf("%s%n%s%n%s%n%s%n%s%n", "1- change password", "2- change first name",
                 "3- change second name", "4- delete account", "5- back to main menu");
-        int choice = console.nextInt();
+        int choice;
 
+        try {
+            choice = console.nextInt();
+        }catch (InputMismatchException exception){
+            System.out.println("enter correct number");
+            return new EditProfileMenu();
+
+
+        }
         switch (choice) {
             case 1:
                 changePassword();

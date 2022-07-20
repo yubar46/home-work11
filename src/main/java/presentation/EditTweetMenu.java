@@ -5,6 +5,7 @@ import domain.Comment;
 import domain.Tweet;
 import domain.User;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,8 +31,16 @@ public class EditTweetMenu implements Menu {
                         myTweet = tweet;
                         check = true;
                         System.out.printf("%s %n %s %n ", "1-rewrite the tweet", "2- delete tweet ");
-                        int choice = console.nextInt();
-                        switch (choice) {
+                        int choice ;
+
+                        try {
+                            choice = console.nextInt();
+                        }catch (InputMismatchException exception){
+                            System.out.println("enter correct number");
+                            return new EditTweetMenu();
+
+
+                        }                        switch (choice) {
                             case 1:
                                 tweet.setTweet(editTweet());
                                 ApplicationContext.getInstance.getTweetService().update(tweet);

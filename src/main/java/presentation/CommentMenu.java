@@ -1,5 +1,6 @@
 package presentation;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CommentMenu implements Menu {
@@ -11,7 +12,14 @@ public class CommentMenu implements Menu {
         boolean check = false;
         do {
             System.out.printf("%s%n%s%n%s%n", "1-new comment", "2-edit comment", "3- back to main menu");
-            choice = console.nextInt();
+            try {
+                choice = console.nextInt();
+            }catch (InputMismatchException exception){
+                System.out.println("enter correct number");
+                return new FirstMenu();
+
+
+            }
             if (choice == 1 || choice == 2 || choice == 3) check = true;
             switch (choice) {
                 case 1:

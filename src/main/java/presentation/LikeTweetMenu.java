@@ -4,6 +4,7 @@ import context.ApplicationContext;
 import domain.Tweet;
 import domain.User;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LikeTweetMenu implements Menu {
@@ -12,7 +13,15 @@ public class LikeTweetMenu implements Menu {
     @Override
     public Menu action() {
         System.out.println("enter your tweet ID");
-        long select = console.nextInt();
+        long select;
+        try {
+            select = console.nextInt();
+        }catch (InputMismatchException exception){
+            System.out.println("enter correct number");
+            return new LikeTweetMenu();
+
+
+        }
         Tweet tweet;
         boolean isLiked = false;
         if (ApplicationContext.getInstance.getTweetService().read(select) != null) {

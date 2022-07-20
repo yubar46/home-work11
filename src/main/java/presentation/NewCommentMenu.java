@@ -4,6 +4,7 @@ import context.ApplicationContext;
 import domain.Comment;
 import domain.Tweet;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class NewCommentMenu implements Menu {
@@ -13,7 +14,16 @@ public class NewCommentMenu implements Menu {
     @Override
     public Menu action() {
         System.out.println("enter tweet id");
-        Long id = console.nextLong();
+
+        Long id;
+        try {
+            id = console.nextLong();
+        }catch (InputMismatchException exception){
+            System.out.println("enter correct number");
+            return new NewCommentMenu();
+
+
+        }
         if (ApplicationContext.getInstance.getTweetService().read(id) != null) {
             Tweet tweet = ApplicationContext.getInstance.getTweetService().read(id);
             System.out.println("write the comment");
