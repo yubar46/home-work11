@@ -15,7 +15,7 @@ public class SignUpMenu implements Menu {
 
         System.out.println("please enter your first name");
         String firstName = console.nextLine();
-        System.out.println("please enter your first last name");
+        System.out.println("please enter your  last name");
         String lastName = console.next();
         String username;
         do {

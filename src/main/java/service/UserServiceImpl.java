@@ -16,11 +16,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserRepository>
         try {
 
             ApplicationContext.getInstance.getEntityManager().getTransaction().begin();
-            ApplicationContext.getInstance.getCommentService().deleteAllByUserId
-                    (ApplicationContext.getInstance.getUser().getId());
-            ApplicationContext.getInstance.getTweetService().deleteAllByUserId
-                    (ApplicationContext.getInstance.getUser().getId());
-            repository.deleteByUserId(id);
+
+            repository.delete(id);
             ApplicationContext.getInstance.getEntityManager().getTransaction().commit();
 
         } catch (Exception e) {

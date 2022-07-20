@@ -76,4 +76,12 @@ public class User {
     public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
     }
+
+    public List<Tweet> getLikedTweets() {
+        return likedTweets;
+    }
+
+    public void setLikedTweets(List<Tweet> likedTweets) {
+        this.likedTweets = likedTweets;
+    }
 }

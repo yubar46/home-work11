@@ -79,4 +79,9 @@ public abstract class BaseRepositoryImpl<T, ID> implements BaseRepository<T, ID>
     public EntityTransaction getTransaction() {
         return entityManager.getTransaction();
     }
+
+    @Override
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 }

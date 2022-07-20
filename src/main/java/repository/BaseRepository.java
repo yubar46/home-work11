@@ -1,5 +1,6 @@
 package repository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 
@@ -21,5 +22,6 @@ public interface BaseRepository<T, ID> {
     void rollbackTransaction();
 
     EntityTransaction getTransaction();
+    EntityManager getEntityManager();
 
 }

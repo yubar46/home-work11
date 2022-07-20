@@ -1,7 +1,10 @@
 package presentation;
 
 import context.ApplicationContext;
+import domain.Comment;
+import domain.Tweet;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class EditProfileMenu implements Menu {
@@ -31,7 +34,7 @@ public class EditProfileMenu implements Menu {
 
         }
 
-        return new EditProfileMenu();
+        return new FirstMenu();
     }
 
     private void changeFirstName() {
@@ -79,6 +82,36 @@ public class EditProfileMenu implements Menu {
         int choice = console.nextInt();
         switch (choice) {
             case 1: {
+                List<Tweet> userTweets = ApplicationContext.getInstance.getTweetService()
+                        .findUserTweets(ApplicationContext.getInstance.getUser());
+                for (Tweet tweet: userTweets) {
+                    for (Comment comment:tweet.getComments()) {
+                        ApplicationContext.getInstance.getCommentService().delete(comment.getId());
+                    }
+                    tweet.getLikedUsers().removeAll(tweet.getLikedUsers());
+                    ApplicationContext.getInstance.getTweetService().update(tweet);
+                    ApplicationContext.getInstance.getTweetService().delete(tweet.getId());
+
+
+
+                }
+                ApplicationContext.getInstance.getUserService().update(ApplicationContext.getInstance.getUser());
+                List<Tweet> allTweets = ApplicationContext.getInstance.getTweetService().showAllTweets();
+                for (Tweet tweet:allTweets) {
+                    for (Comment comment: tweet.getComments()) {
+                        if (comment.getCommentOwner().getUserName().equals(ApplicationContext.getInstance
+                        .getUser().getUserName())) tweet.getComments().remove(comment);
+                        if (tweet.getComments().isEmpty())break;
+                    }
+                    if (allTweets.isEmpty())break;
+                }
+                if (!allTweets.isEmpty()){
+                    for (Tweet tweet: allTweets) {
+                        ApplicationContext.getInstance.getTweetService().update(tweet);
+
+                    }
+
+                }
                 ApplicationContext.getInstance.getUserService().
                         delete(ApplicationContext.getInstance.getUser().getId());
                 ApplicationContext.getInstance.setUser(null);

@@ -21,6 +21,8 @@ public class LikeTweetMenu implements Menu {
                 if (user.getUserName().equals(ApplicationContext.getInstance.getUser().getUserName())) {
                     tweet.getLikedUsers().remove(ApplicationContext.getInstance.getUser());
                     ApplicationContext.getInstance.getTweetService().update(tweet);
+                    ApplicationContext.getInstance.getUserService()
+                            .update(ApplicationContext.getInstance.getUser());
                     isLiked = true;
                     System.out.println("UNLIKED");
                     if (tweet.getLikedUsers().isEmpty()) break;
@@ -28,6 +30,10 @@ public class LikeTweetMenu implements Menu {
             }
             if (!isLiked) {
                 tweet.getLikedUsers().add(ApplicationContext.getInstance.getUser());
+                ApplicationContext.getInstance.getUser().getLikedTweets().add(tweet);
+                ApplicationContext.getInstance.getTweetService().update(tweet);
+                ApplicationContext.getInstance.getUserService().update(ApplicationContext.getInstance.getUser());
+
                 System.out.println("LIKED!!!");
             }
         } else System.out.println("there is no tweet with this id in system");

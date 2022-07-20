@@ -14,8 +14,11 @@ public class ViewAllTweetsMenu implements Menu {
             tweets = ApplicationContext.getInstance.getTweetService().showAllTweets();
             ApplicationContext.getInstance.setTweets(tweets);
             for (int i = 0; i < tweets.size(); i++) {
-                System.out.println(tweets.get(i));
-                tweets.get(i).getComments().forEach(System.out::println);
+                if (tweets.get(i).getTweetOwner()!=null){
+                    System.out.println(tweets.get(i));
+                    tweets.get(i).getComments().forEach(System.out::println);
+                }
+
             }
 
         }
