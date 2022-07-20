@@ -19,7 +19,15 @@ public class EditTweetMenu implements Menu {
         boolean check = false;
         do {
             System.out.println("enter your tweet ID");
-            Long id = console.nextLong();
+            Long id;
+              try {
+                id = console.nextLong();
+            }catch (InputMismatchException exception){
+                System.out.println("enter correct number");
+                return new EditTweetMenu();
+
+
+            }
             if (id == -1) return new InsideMenu();
 
             List<Tweet> tweets = ApplicationContext.getInstance
